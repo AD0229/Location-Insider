@@ -61,7 +61,15 @@ window.LOCATION_INSIDER_CONFIG = {
       "active": true,
       "order": 6,
       "link": ""
-    }
+    },
+    {
+  "name": "Italien",
+  "country": "Italien",
+  "svgId": "IT",
+  "active": true,
+  "order": 7,
+  "link": ""
+}
   ],
   "states": [
     {
