@@ -86,7 +86,7 @@ window.LOCATION_INSIDER_CONFIG = {
       "country": "Deutschland",
       "active": true,
       "order": 30,
-      "link": ""
+      "link": "https://friedrichswalde37.sharepoint.com/sites/Know-HowIntranet/SitePages/Berlin.aspx"
     },
     {
       "name": "Brandenburg",
