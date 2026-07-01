@@ -362,7 +362,7 @@ svg .country-selected { fill:var(--li-purple) !important; }
       <p class="side-note" id="panelIntro">Active countries are highlighted in turquoise. Hover turns them purple. Click Germany to open the detail map.</p>
       <div class="list" id="locationList"></div>
       <div class="status" id="statusBox">Loading SharePoint list...</div>
-      <div class="footerhint">Data source: location-insider-config.js</div>
+      <div class="footerhint">Data source: location-insider-config.js · Version 1.2</div>
     </aside>
   </main>
 </div>
@@ -430,7 +430,7 @@ function renderPanel(filter=''){
     const div=document.createElement('div'); div.className='item';
     const badge=currentView==='world'
       ? (key(r.name)==='deutschland' ? countStates()+' Bundesländer' : 'Öffnen')
-      : 'Bundesland öffnen';
+      : (key(r.name)==='berlin' && r.link ? 'Direkt öffnen' : ((STATE_CITIES[r.name]||[]).length ? 'Locations' : 'Vorbereitet'));
     div.innerHTML=`<div class="item-title"><span>${r.name}</span><span class="badge">${badge}</span></div><div class="item-meta">${r.country||'Location Insider'}</div>`;
     div.onclick=()=> currentView==='world' ? openCountry(r) : openState(r);
     list.appendChild(div);
@@ -449,7 +449,7 @@ function openCountry(c){
     $('#backBtn').classList.add('show');
     $('#mapLabel').textContent='🇩🇪 Deutschland';
     $('#panelTitle').textContent='Deutschland';
-    $('#panelIntro').textContent='Wählen Sie ein Bundesland aus. Der Klick öffnet später die passende SharePoint-Bundeslandseite mit den zugehörigen Städten.';
+    $('#panelIntro').textContent='Wählen Sie ein Bundesland aus. Berlin öffnet direkt die SharePoint-Seite; andere Bundesländer zeigen rechts die verfügbaren Locations.';
     applyGermanStates();
     renderPanel($('#searchInput').value);
   } else openTarget(c);
@@ -460,24 +460,42 @@ function openState(st){
   });
   const el=document.getElementById(st.svgId);
   if(el){ el.classList.add('state-selected'); el.style.fill=COLORS.hover; }
-  if(st.link && st.link !== '#') { window.open(st.link,'_blank'); return; }
+
+  // Sonderfall: Berlin hat keine Unterauswahl und öffnet direkt die SharePoint-Seite.
+  if(key(st.name)==='berlin' && st.link && st.link !== '#') {
+    window.open(st.link,'_blank');
+    return;
+  }
+
+  // Alle anderen Bundesländer zeigen rechts ihre verfügbaren Locations.
   renderStateDetails(st);
 }
 function renderStateDetails(st){
   const list=$('#locationList');
   const cities=STATE_CITIES[st.name] || [];
-  $('#panelTitle').textContent=st.name;
-  $('#panelIntro').textContent='Dieses Bundesland ist vorbereitet. Hinterlege spaeter einen Link oder fuege Staedte in der Konfiguration hinzu.';
+  $('#panelTitle').textContent='📍 ' + st.name;
+  $('#panelIntro').textContent=cities.length
+    ? 'Verfügbare Locations in ' + st.name + '. Ein Klick öffnet die hinterlegte SharePoint-Seite.'
+    : 'Für ' + st.name + ' sind noch keine Locations hinterlegt.';
   list.innerHTML='';
+
+  if(st.link && st.link !== '#' && key(st.name)!=='berlin'){
+    const stateDiv=document.createElement('div'); stateDiv.className='item';
+    stateDiv.innerHTML=`<div class="item-title"><span>Bundesland-Seite öffnen</span><span class="badge">SharePoint</span></div><div class="item-meta">${st.name}</div>`;
+    stateDiv.onclick=()=>window.open(st.link,'_blank');
+    list.appendChild(stateDiv);
+  }
+
   if(cities.length){
     cities.forEach(city=>{
       const div=document.createElement('div'); div.className='item';
-      div.innerHTML=`<div class="item-title"><span>${city.name}</span><span class="badge">Location</span></div><div class="item-meta">${st.name}</div>`;
-      div.onclick=()=> city.link ? window.open(city.link,'_blank') : alert(city.name + ' ist vorbereitet. Bitte spaeter den SharePoint-Link in location-insider-config.js ergaenzen.');
+      const hasLink=city.link && city.link !== '#';
+      div.innerHTML=`<div class="item-title"><span>${city.name}</span><span class="badge">${hasLink ? 'Öffnen' : 'Vorbereitet'}</span></div><div class="item-meta">${st.name}</div>`;
+      div.onclick=()=> hasLink ? window.open(city.link,'_blank') : alert(city.name + ' ist vorbereitet. Bitte den SharePoint-Link in location-insider-config.js ergaenzen.');
       list.appendChild(div);
     });
-  } else {
-    list.innerHTML='<div class="side-note">Noch keine Staedte fuer dieses Bundesland hinterlegt.</div>';
+  } else if(!(st.link && st.link !== '#')) {
+    list.innerHTML='<div class="side-note">Noch keine Locations fuer dieses Bundesland hinterlegt. Du kannst sie in location-insider-config.js im Bereich "cities" ergaenzen.</div>';
   }
 }
 function backToWorld(){
