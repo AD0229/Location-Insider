@@ -91,7 +91,7 @@ window.LOCATION_INSIDER_CONFIG = {
       { "name": "Köln", "link": "" },
       { "name": "Düsseldorf", "link": "" },
       { "name": "Dortmund", "link": "" },
-      { "name": "Essen", "link": "" },
+      { "name": "Essen", "link": "https://friedrichswalde37.sharepoint.com/:u:/r/sites/Know-HowIntranet/SitePages/Essen.aspx?csf=1&web=1&share=IQALWzmqLAkVRYmZo1mnY5aIAaK7BBPNXdupI7UnzV1fP0A&e=g2BRyp" },
       { "name": "Bonn", "link": "" }
     ],
     "Rheinland-Pfalz": [
