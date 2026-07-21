@@ -66,24 +66,30 @@ svg .country-selected { fill:var(--li-purple) !important; }
 }
 
 .sharepoint-mode .app {
-  padding-top: 0;
-  max-width: 1320px;
-  padding: 12px;
+  width: 100%;
+  max-width: none;
+  padding: 0 8px;
 }
 
 .sharepoint-mode .layout {
-  margin-top: 0;
-  grid-template-columns: minmax(0, 3fr) minmax(260px, 1fr);
-  gap: 16px;
+  width: 100%;
+  margin: 0;
+  grid-template-columns: minmax(0, 4fr) 240px;
+  gap: 12px;
 }
 
-.sharepoint-mode .map-card,
+.sharepoint-mode .map-card {
+  padding: 10px;
+  border-radius: 12px;
+}
+
 .sharepoint-mode .side {
-  border-radius: 14px;
+  padding: 14px;
+  border-radius: 12px;
 }
 
 .sharepoint-mode .map-wrap {
-  min-height: 680px;
+  min-height: 720px;
 }
 </style>
 </head>
