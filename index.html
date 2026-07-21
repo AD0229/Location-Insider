@@ -67,10 +67,23 @@ svg .country-selected { fill:var(--li-purple) !important; }
 
 .sharepoint-mode .app {
   padding-top: 0;
+  max-width: 1320px;
+  padding: 12px;
 }
 
 .sharepoint-mode .layout {
   margin-top: 0;
+  grid-template-columns: minmax(0, 3fr) minmax(260px, 1fr);
+  gap: 16px;
+}
+
+.sharepoint-mode .map-card,
+.sharepoint-mode .side {
+  border-radius: 14px;
+}
+
+.sharepoint-mode .map-wrap {
+  min-height: 680px;
 }
 </style>
 </head>
