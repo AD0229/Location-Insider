@@ -529,6 +529,7 @@ function backToWorld(){
   $('#searchInput').addEventListener('input',e=>renderPanel(e.target.value));
 })();
 </script>
+  <script>
   const params = new URLSearchParams(window.location.search);
 
   if (params.get("sharepoint") === "1") {
