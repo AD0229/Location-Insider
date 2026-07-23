@@ -99,13 +99,120 @@ svg .country-selected { fill:var(--li-purple) !important; }
 >
   ← Zurück zum Know-How Portal
 </a>
+  /* Neuer Portal-Header */
+.portal-header {
+  display: grid;
+  grid-template-columns: auto minmax(300px, 1fr) minmax(280px, 420px);
+  align-items: center;
+  gap: 24px;
+  padding: 18px 24px;
+  margin-bottom: 18px;
+  background: rgba(255, 255, 255, 0.94);
+  border: 1px solid var(--li-border);
+  border-radius: 18px;
+  box-shadow: 0 8px 28px rgba(37, 66, 82, 0.08);
+}
+
+.portal-home {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 10px 14px;
+  border: 1px solid var(--li-border);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--li-text);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 700;
+  white-space: nowrap;
+  transition:
+    transform 0.16s ease,
+    border-color 0.16s ease,
+    box-shadow 0.16s ease;
+}
+
+.portal-home:hover {
+  transform: translateY(-1px);
+  border-color: var(--li-turquoise);
+  box-shadow: 0 6px 18px rgba(37, 66, 82, 0.1);
+}
+
+.portal-home-icon {
+  color: var(--li-turquoise);
+  font-size: 19px;
+  line-height: 1;
+}
+
+.location-brand {
+  min-width: 0;
+}
+
+.location-brand h1 {
+  margin: 0;
+}
+
+.portal-header .search {
+  width: 100%;
+  max-width: none;
+}
+
+.portal-header .search input {
+  width: 100%;
+}
+
+@media (max-width: 980px) {
+  .portal-header {
+    grid-template-columns: 1fr;
+    gap: 14px;
+    padding: 16px;
+  }
+
+  .portal-home {
+    justify-self: start;
+  }
+
+  .portal-header .search {
+    width: 100%;
+  }
+}
 </style>
 </head>
 <body>
 <div class="app">
-  <header class="header">
-    <div class="brand"><div class="logo">🌍</div><div><h1>Location Insider</h1><p class="subtitle">Discover event locations and insider pages worldwide.</p></div></div>
-    <div class="search"><input id="searchInput" type="search" placeholder="Search location or country..." /></div>
+ <header class="header portal-header">
+
+  <a
+    class="portal-home"
+    href="https://friedrichswalde37.sharepoint.com/:u:/s/Know-HowIntranet/IQBCH_-ZgToSRoEmychklXTPAS082H2QAf4gZSLHRrmaoQQ?e=MEiqv4"
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label="Zurück zum Know-How Portal"
+  >
+    <span class="portal-home-icon">⌂</span>
+    <span>Know-How Portal</span>
+  </a>
+
+  <div class="brand location-brand">
+    <div class="logo">🌍</div>
+
+    <div>
+      <h1>Location Insider</h1>
+      <p class="subtitle">
+        Eventlocations und Insiderwissen weltweit entdecken.
+      </p>
+    </div>
+  </div>
+
+  <div class="search">
+    <input
+      id="searchInput"
+      type="search"
+      placeholder="Standort oder Land suchen …"
+      aria-label="Standort oder Land suchen"
+    />
+  </div>
+
   </header>
   <main class="layout">
     <section class="card map-card">
