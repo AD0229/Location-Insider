@@ -586,8 +586,24 @@ function renderPanel(filter=''){
   let data=currentView==='world' ? COUNTRIES.filter(isActive) : GERMAN_STATES.filter(isActive);
   if(q) data=data.filter(r=>key((r.name||'')+' '+(r.country||'')).includes(q));
   data.sort(sortItems);
+  const flags = {
+  deutschland: "🇩🇪",
+  usa: "🇺🇸",
+  spanien: "🇪🇸",
+  österreich: "🇦🇹",
+  schweiz: "🇨🇭",
+  italien: "🇮🇹",
+  vae: "🇦🇪"
+};
   data.forEach(r=>{
-    const div=document.createElement('div'); div.className='item';
+const div=document.createElement('div');
+
+div.className =
+  'item' + (
+    currentView === 'world' && key(r.name) === 'deutschland'
+      ? ' item-germany'
+      : ''
+  );
     const badge=currentView==='world'
       ? (key(r.name)==='deutschland' ? countStates()+' Bundesländer' : 'Öffnen')
       : (key(r.name)==='berlin' && r.link ? 'Direkt öffnen' : ((STATE_CITIES[r.name]||[]).length ? 'Locations' : 'Vorbereitet'));
